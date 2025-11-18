@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="WhisperLink - Securely share sensitive information with self-destructing, single-use links">
+    <title>WhisperLink - Self-Destructing Secret Sharer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title gradient-text">WhisperLink</h1>
+            <p class="subtitle">Self-destructing secrets. One view. Then gone forever.</p>
+        </header>
+
+        <!-- Create Secret View -->
+        <div id="view-create" class="view active">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Share a Secret</h2>
+                    <p class="hint">Paste your sensitive text below. We'll generate a unique link that self-destructs
+                        after one view.</p>
+                </div>
+
+                <div class="card-body">
+                    <textarea id="secret-input" class="secret-textarea"
+                        placeholder="Enter your password, API key, private note, or any sensitive information..."
+                        maxlength="100000" rows="8"></textarea>
+
+                    <div class="char-counter">
+                        <span id="char-count">0</span> / 100,000 characters
+                    </div>
+
+                    <button id="create-btn" class="btn btn-primary">
+                        <span class="btn-icon">🔒</span>
+                        Create Secret Link
+                    </button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-item">
+                    <span class="info-icon">🔥</span>
+                    <div>
+                        <h3>One-Time View</h3>
+                        <p>Secret is destroyed immediately after being read once</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⏱️</span>
+                    <div>
+                        <h3>24-Hour Expiration</h3>
+                        <p>Unread secrets auto-delete after 24 hours</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🚫</span>
+                    <div>
+                        <h3>Zero Persistence</h3>
+                        <p>Nothing is saved to disk. Only exists in RAM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="view-result" class="view">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h2>✓ Secret Link Created</h2>
+                    <p class="hint">Share this link carefully. It works only once and expires in 24 hours.</p>
+                </div>
+
+                <div class="card-body">
+                    <div class="link-container">
+                        <input id="result-link" type="text" class="link-input" readonly>
+                        <button id="copy-btn" class="btn btn-secondary">
+                            <span class="btn-icon">📋</span>
+                            Copy
+                        </button>
+                    </div>
+
+                    <div class="expiration-info">
+                        <span class="info-icon">⏱️</span>
+                        <span id="expiration-text">Expires in 24 hours</span>
+                    </div>
+
+                    <button id="create-another-btn" class="btn btn-outline">
+                        Create Another Secret
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Read Secret View -->
+        <div id="view-read" class="view">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h2>⚠️ One-Time Secret</h2>
+                    <p class="hint warning-text">This message will self-destruct immediately after you read it. Copy it
+                        now!</p>
+                </div>
+
+                <div class="card-body">
+                    <div class="secret-display" id="secret-content">
+                        <!-- Secret content will be loaded here -->
+                    </div>
+
+                    <button id="copy-secret-btn" class="btn btn-secondary">
+                        <span class="btn-icon">📋</span>
+                        Copy to Clipboard
+                    </button>
+
+                    <div class="destruction-warning">
+                        <span class="warning-icon">🔥</span>
+                        <strong>This secret has been destroyed from the server.</strong> Refreshing this page will show
+                        a 404 error.
+                    </div>
+
+                    <button id="go-home-btn" class="btn btn-outline">
+                        Create Your Own Secret
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error View (404) -->
+        <div id="view-error" class="view">
+            <div class="card card-error">
+                <div class="card-header">
+                    <h2>❌ Secret Not Found</h2>
+                    <p class="hint">This secret doesn't exist, has already been viewed, or has expired.</p>
+                </div>
+
+                <div class="card-body">
+                    <div class="error-reasons">
+                        <p><strong>Possible reasons:</strong></p>
+                        <ul>
+                            <li>The secret was already accessed and destroyed</li>
+                            <li>The link expired (24-hour limit)</li>
+                            <li>The link is invalid or incomplete</li>
+                            <li>The server was restarted (secrets are stored in memory)</li>
+                        </ul>
+                    </div>
+
+                    <button id="error-home-btn" class="btn btn-primary">
+                        Create a New Secret
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🔒 WhisperLink - Your secrets are safe with us. Literally, they don't exist after one view.</p>
+        <p class="footer-hint">All data stored in memory only. Nothing persisted to disk.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
