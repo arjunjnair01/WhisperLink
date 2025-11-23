@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wisperlink-deployment  
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wisperlink          
+  template:
+    metadata:
+      labels:
+        app: wisperlink        
+    spec:
+      containers:
+      - name: wisperlink
+        image: arjunjnair12/wisperlink:latest  
+        ports:
+        - containerPort: 3000
