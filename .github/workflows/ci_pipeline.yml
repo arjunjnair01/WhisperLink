@@ -3,7 +3,7 @@ on:
   push: 
     branches: [ "master" ]
 jobs: 
-  build and push:
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name : Checkout code
@@ -18,8 +18,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: 
-            - ${{ secrets.DOCKER_USERNAME }}/wisperlink:latest
-            - ${{ secrets.DOCKER_USERNAME }}/wisperlink:${{ github.sha }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/wisperlink:latest
+            ${{ secrets.DOCKER_USERNAME }}/wisperlink:${{ github.sha }}
 
       
