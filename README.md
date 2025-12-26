@@ -376,6 +376,5 @@ Contributions are welcome! Feel free to:
 
 ---
 
-**Built with ❤️ for privacy and security**
 
 🔒 **Remember:** WhisperLink is designed for convenience, not for storing state secrets. Always follow your organization's security policies.
