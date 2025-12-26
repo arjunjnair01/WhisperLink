@@ -28,13 +28,13 @@ jobs:
       - name: Checkout Config Repo
         uses: actions/checkout@v4
         with:
-          repository: arjunjnair01/wisperlink-config  # <--- VERIFY THIS USERNAME/REPO
+          repository: arjunjnair01/WhisperLink-config  # <--- VERIFY THIS USERNAME/REPO
           token: ${{ secrets.API_TOKEN_GITHUB }}
 
       - name: Update Image Tag
         run: |
           # specific replacement of the image tag
-          sed -i 's|image: arjunjnair12/wisperlink:.*|image: arjunjnair12/wisperlink:${{ github.sha }}|' deployment.yaml
+          sed -i 's|image: arjunjnair12/WhisperLink:.*|image: arjunjnair12/WhisperLink:${{ github.sha }}|' deployment.yaml
           
       - name: Commit and Push
         run: |
