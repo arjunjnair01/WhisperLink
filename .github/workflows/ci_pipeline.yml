@@ -40,6 +40,11 @@ jobs:
         run: |
           git config --global user.email "gitops-bot@example.com"
           git config --global user.name "GitOps Bot"
-          git commit -am "Update image to ${{ github.sha }}"
-          git push
+          git add deployment.yaml
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update image to ${{ github.sha }}"
+            git push
+          fi
       
