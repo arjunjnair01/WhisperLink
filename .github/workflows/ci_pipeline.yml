@@ -21,5 +21,25 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/wisperlink:latest
             ${{ secrets.DOCKER_USERNAME }}/wisperlink:${{ github.sha }}
+  update-manifest:
+    needs: build_and_push   # <--- MAKE SURE THIS MATCHES YOUR BUILD JOB NAME
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Config Repo
+        uses: actions/checkout@v4
+        with:
+          repository: arjunjnair01/wisperlink-config  # <--- VERIFY THIS USERNAME/REPO
+          token: ${{ secrets.API_TOKEN_GITHUB }}
 
+      - name: Update Image Tag
+        run: |
+          # specific replacement of the image tag
+          sed -i 's|image: arjunjnair12/wisperlink:.*|image: arjunjnair12/wisperlink:${{ github.sha }}|' deployment.yaml
+          
+      - name: Commit and Push
+        run: |
+          git config --global user.email "gitops-bot@example.com"
+          git config --global user.name "GitOps Bot"
+          git commit -am "Update image to ${{ github.sha }}"
+          git push
       
