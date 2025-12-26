@@ -34,7 +34,7 @@ jobs:
       - name: Update Image Tag
         run: |
           # specific replacement of the image tag
-          sed -i 's|image: arjunjnair12/WhisperLink:.*|image: arjunjnair12/WhisperLink:${{ github.sha }}|' deployment.yaml
+          sed -i 's|image: arjunjnair01/wisperlink:.*|image: arjunjnair01/wisperlink:${{ github.sha }}|' deployment.yaml
           
       - name: Commit and Push
         run: |
